@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "d26e4108-17ac-4649-8b3f-7aeb8d98381b",
+		"name": "GitIntegrationDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getPlaceHolderReq001",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "81a0354f-d6dc-400a-993f-a8520a5ac8bb",
+						"exec": [
+							"let string = \"\\\\nnostrum rerum\";",
+							"let jsonStringWithTag = '\"title\": \"nesciunt quas odio\"'",
+							"",
+							"pm.test(\"Status code is: \" + pm.variables.get(\"SuccessCode\"), function () {",
+							"        pm.response.to.have.status(pm.variables.get(\"SuccessCode\"));",
+							"    });",
+							"    ",
+							"// Check if response body contains a string    ",
+							"pm.test(\"Body matches string: \" + string, function () {",
+							"    pm.expect(pm.response.text()).to.include(string);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 10ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);",
+							"});",
+							"",
+							"pm.test(\"Body matches string: \" + jsonStringWithTag, function () {",
+							"    pm.expect(pm.response.text()).to.include(jsonStringWithTag);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "20dac11e-7e91-4299-b7af-55ad88b9157e",
+						"exec": [
+							"pm.globals.set(\"SuccessCode\", 200);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts?userId=1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Demo"
+			},
+			"response": []
+		},
+		{
+			"name": "deletePlaceHolderReq002",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "81a0354f-d6dc-400a-993f-a8520a5ac8bb",
+						"exec": [
+							"let string = \"\\\\nnostrum rerun\";",
+							"",
+							"pm.test(\"Status code is: \" + pm.variables.get(\"SuccessCode\"), function () {",
+							"        pm.response.to.have.status(pm.variables.get(\"SuccessCode\"));",
+							"    });",
+							"    ",
+							"// Check if response body contains a string    ",
+							"pm.test(\"Body matches string: \" + string, function () {",
+							"    pm.expect(pm.response.text()).to.include(string);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 10ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "20dac11e-7e91-4299-b7af-55ad88b9157e",
+						"exec": [
+							"pm.globals.set(\"SuccessCode\", 200);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				},
+				"description": "Demo"
+			},
+			"response": []
+		}
+	]
+}
