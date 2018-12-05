@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Demo to show Postman Newman Git Jenkins integration",
   "scripts": {
-    "apiTestDemo": "newman run testScripts\DemoPlaceHolder.json"
+    "apiTestDemo": "newman run testScripts\\DemoPlaceHolder.json"
   },
   "author": "Amit Sharma",
   "dependencies": {
