@@ -25,12 +25,21 @@
 							"    pm.expect(pm.response.text()).to.include(string);",
 							"});",
 							"",
-							"pm.test(\"Response time is less than 10ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(10);",
+							"pm.test(\"Response time is less than 20ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(20);",
 							"});",
 							"",
 							"pm.test(\"Body matches string: \" + jsonStringWithTag, function () {",
 							"    pm.expect(pm.response.text()).to.include(jsonStringWithTag);",
+							"});",
+							"",
+							"pm.test('returns a JSON response', () => {",
+							"  pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test('returns the correct customer', () => {",
+							"  let jsonData = pm.response.json();",
+							"  pm.expect(jsonData.userId).to.eql(1);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -84,7 +93,7 @@
 					"script": {
 						"id": "81a0354f-d6dc-400a-993f-a8520a5ac8bb",
 						"exec": [
-							"let string = \"\\\\nnostrum rerun\";",
+							"let string = \"\\\\nnostrum rerum\";",
 							"",
 							"pm.test(\"Status code is: \" + pm.variables.get(\"SuccessCode\"), function () {",
 							"        pm.response.to.have.status(pm.variables.get(\"SuccessCode\"));",
@@ -95,8 +104,19 @@
 							"    pm.expect(pm.response.text()).to.include(string);",
 							"});",
 							"",
-							"pm.test(\"Response time is less than 10ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(10);",
+							"pm.test(\"Response time is less than 50ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});",
+							"",
+							"pm.test('Returns the correct attribute value for User Id', () => {",
+							"  let jsonData = pm.response.json();",
+							"  pm.expect(jsonData.userId).to.eql(1);",
+							"});",
+							"",
+							"pm.test('Returns the correct attribute value for User Id', () => {",
+							"    let jsonData = pm.response.json();",
+							"    pm.expect(pm.response.json().results[1].not).to.equal(\"userId\")",
+							"  ;",
 							"});"
 						],
 						"type": "text/javascript"
@@ -107,6 +127,7 @@
 					"script": {
 						"id": "20dac11e-7e91-4299-b7af-55ad88b9157e",
 						"exec": [
+							"console.log(\"Testing dmo - Postman - Newman integration with Serenity BDD\")",
 							"pm.globals.set(\"SuccessCode\", 200);"
 						],
 						"type": "text/javascript"
@@ -134,6 +155,79 @@
 					]
 				},
 				"description": "Demo"
+			},
+			"response": []
+		},
+		{
+			"name": "FilterGenderNationality",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff498408-d27a-4b39-86e5-f52b2530a616",
+						"exec": [
+							"pm.environment.set(\"env\", \"production\");\r",
+							"\r",
+							"// example using pm.response.to.have\r",
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// example using pm.expect()\r",
+							"pm.test(\"environment to be production\", function () { \r",
+							"    pm.expect(pm.environment.get(\"env\")).to.equal(\"production\"); \r",
+							"});\r",
+							"\r",
+							"// example using response assertions\r",
+							"pm.test(\"response should be okay to process\", function () { \r",
+							"    pm.response.to.not.be.error; \r",
+							"    pm.response.to.have.jsonBody(\"\"); \r",
+							"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+							"});\r",
+							"\r",
+							"// example using pm.response.to.be*\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     // assert that the status code is 200\r",
+							"     //pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+							"     // assert that the response has a valid JSON body\r",
+							"     //pm.response.to.be.withBody;\r",
+							"     //pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+							"     \r",
+							"     pm.response.to.not.have.jsonBody(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://randomuser.me/api?gender=male&nat=us",
+					"protocol": "https",
+					"host": [
+						"randomuser",
+						"me"
+					],
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "male"
+						},
+						{
+							"key": "nat",
+							"value": "us"
+						}
+					]
+				}
 			},
 			"response": []
 		}
